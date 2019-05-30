@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 //        roll_button.text = getString(R.string.let_us_roll)
 
         //Setting on On-click listener
-        roll_button.setOnClickListener { view ->
+        roll_button.setOnClickListener {
             //            Toast.makeText(this,"Warris happening here", Toast.LENGTH_SHORT).show()
             rollDice()
         }
