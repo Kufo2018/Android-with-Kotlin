@@ -3,4 +3,5 @@
     <string name="one">1</string>
     <string name="roll">Roll</string>
     <string name="let_us_roll">Let\'s Roll</string>
+    <string name="descrip_dice_image">dice_image</string>
 </resources>
