@@ -8,6 +8,7 @@
               tools:context=".MainActivity">
 
     <ImageView
+            tools:src="@drawable/dice_1"
             android:src="@drawable/empty_dice"
             android:id="@+id/dice_image"
             android:layout_gravity="center_horizontal"

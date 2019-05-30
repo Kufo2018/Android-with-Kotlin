@@ -25,10 +25,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    // Generating random nummbers and assigning respective dice images
+    // Generating random numbers and assigning to respective dice images
     private fun rollDice() {
         val randomInt = Random.nextInt(6) + 1
-        val diceImage: ImageView = findViewById(R.id.dice_image)
+
+        // Extracting Image resource variable
+        lateinit var diceImage: ImageView
+        diceImage = findViewById(R.id.dice_image)
         val drawableResource = when (randomInt) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
