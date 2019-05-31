@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">About Me</string>
-    <string name="my_name">David Kuforiji</string>
+    <string name="my_name">Lord Stark</string>
     <string name="yellow_star">yellow star</string>
 
     <string name="bio">A biography is meant to analyze a person’s life and interpret it as well.
@@ -20,4 +20,6 @@
         The secondary sources are reference books, other biographies or historical records that are related to the
         subject being written about.
     </string>
+    <string name="what_is_your_nickname">What is your nickname?</string>
+    <string name="done">Done</string>
 </resources>
