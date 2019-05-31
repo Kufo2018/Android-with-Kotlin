@@ -11,12 +11,17 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: com.example.aboutme.databinding.ActivityMainBinding
 
+    // We need an instance of the `myname` data class, so we create it and set the name
+    var myName: MyName = MyName("Lord Stark")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Set content view(R.layout.activity_main)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        // Set the value of myName used in layout file to firstName
+        binding.myName = myName
 
         // Binding button view and setting on-click listener
         binding.doneButton.setOnClickListener {
@@ -27,20 +32,23 @@ class MainActivity : AppCompatActivity() {
     // Add nickname function
     private fun addNickname(view: View) {
 
-        // Bind edit text view and get text
-        binding.nickname.text
+        binding.apply {
 
-        // Nickname text view equal to  edit text input
-        binding.whatIsYourNickname.text = binding.nickname.text
+            // Nickname text view equal to  edit text input
+            myName?.nickname = nickname.text.toString()
 
-        // Show nickname text view
-        binding.whatIsYourNickname.visibility = View.VISIBLE
+            // Invalidates all binding expressions and requests a new rebind to refresh UI.
+            invalidateAll()
 
-        // Hide edit text field
-        binding.nickname.visibility = View.GONE
+            // Show nickname text view
+            whatIsYourNickname.visibility = View.VISIBLE
 
-        // Hide done button
-        binding.doneButton.visibility = View.GONE
+            // Hide edit text field
+            nickname.visibility = View.GONE
+
+            // Hide done button
+            doneButton.visibility = View.GONE
+        }
 
         // Hide the keyboard.
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -51,4 +59,6 @@ class MainActivity : AppCompatActivity() {
 
 // CODE SNIPPETS
 //        findViewById<Button>(R.id.done_button).setOnClickListener {
+//            binding.whatIsYourNickname.text = binding.nickname.text
+
 
