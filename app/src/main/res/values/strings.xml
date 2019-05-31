@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">About Me</string>
+    <string name="my_name">David Kuforiji</string>
+    <string name="yellow_star">yellow star</string>
+
+    <string name="bio">A biography is meant to analyze a person’s life and interpret it as well.
+        A good biographer will try to join the dots and explain certain actions and events that a certain figure was
+        involved in.
+        This will help in clearly bringing out the significance of a person’s life through their accomplishments or
+        remarkable deeds.
+        Biographies are usually written in a chronological order.
+        Some biographers could also draft them in a themed order that is early life, educational background, a person’s
+        achievements or accomplishments.
+        But some especially the short ones will focus on one area in a person’s life.
+        There are several sources of information that could aid one in writing an astounding biography.
+        These sources of information can be grouped into either primary sources or secondary sources.
+        The primary sources of information include materials like letters, newspaper accounts or diaries.
+        A biographer can also make an arrangement to interview an individual they want to write about. This is also
+        considered as a primary source of information.
+        The secondary sources are reference books, other biographies or historical records that are related to the
+        subject being written about.
+    </string>
 </resources>
