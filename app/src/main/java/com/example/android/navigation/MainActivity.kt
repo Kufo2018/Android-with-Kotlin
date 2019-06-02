@@ -19,6 +19,9 @@ package com.example.android.navigation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -28,5 +31,26 @@ class MainActivity : AppCompatActivity() {
 
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
+        /**
+         * To implement navigation correctly, we need to use the navigation UI library
+         * The nav UI library needs access  to the nav controller
+         * The preferred way of doing this is to use the findNavController method that takes the activity
+         * and the nav host fragment ID as parameters
+         * Of course, there's a ktx version of this
+         */
+        val navController = this.findNavController(R.id.myNavHostFragment)
+
+        // We can hook up the navigation UI to the action bar by:
+        NavigationUI.setupActionBarWithNavController(this, navController)
+
+    }
+
+    /**
+     * Override the default method to specify what the navigation arrow does
+     */
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.myNavHostFragment)
+        return navController.navigateUp()
     }
 }
+
