@@ -2,16 +2,16 @@ package com.example.android.navigation
 
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.FragmentGameBinding
 import com.example.android.navigation.databinding.FragmentTitleBinding
+import kotlinx.android.synthetic.main.fragment_game_over.*
 
 
 /**
@@ -33,7 +33,7 @@ class TitleFragment : Fragment() {
         )
 
         // Sets onClick listener for play button
-        binding.playButton.setOnClickListener { view: View ->
+        binding.playButton.setOnClickListener { v: View ->
             /**
              * At this point we need to navigate between our destinations
              * To do this, we need to find an instance of the Navigation Controller
@@ -42,7 +42,8 @@ class TitleFragment : Fragment() {
              * Navigation provides a helper function called findNavController
              * findNavController takes a view, finds the enclosing nav host fragment and returns the navigation controller for that nav host fragment
              */
-            Navigation.findNavController(view).navigate(R.id.action_titleFragment_to_gameFragment)
+            v.findNavController().navigate(
+                    TitleFragmentDirections.actionTitleFragmentToGameFragment())
 
             //OR
             /**
@@ -51,7 +52,16 @@ class TitleFragment : Fragment() {
             *}
              */
 
+            //OR
+//            Navigation.findNavController(view).navigate(R.id.action_titleFragment_to_gameFragment)
+
+
         }
+
+        /**
+         * Tell Android that TitleFragment has a menu
+         */
+        setHasOptionsMenu(true)
 
         // Returns the root of the layout we just inflated
         return binding.root
@@ -63,7 +73,22 @@ class TitleFragment : Fragment() {
          */
     }
 
+    /**
+    * *Next we need to override onCreateOptionsMenu and inflate our new menu resource using the provided menu inflater and menu structure.
+     */
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(R.menu.overflow_menu, menu)
+    }
 
+    /**
+     * Override onOptionsItemSelected to connect it to our NavigationUI.
+     */
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return NavigationUI.onNavDestinationSelected(item!!,
+                view!!.findNavController())
+                || super.onOptionsItemSelected(item)
+    }
 }
 
 

@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.android.navigation.databinding.FragmentGameOverBinding
 
@@ -34,7 +35,8 @@ class GameOverFragment : Fragment() {
 
         // Return the try again button to the game fragment
         binding.tryAgainButton.setOnClickListener { view: View ->
-            findNavController().navigate(R.id.action_gameOverFragment2_to_gameFragment)
+//            findNavController().navigate(R.id.action_gameOverFragment2_to_gameFragment)
+            view.findNavController().navigate(GameOverFragmentDirections.actionGameOverFragment2ToGameFragment())
         }
 
         return binding.root

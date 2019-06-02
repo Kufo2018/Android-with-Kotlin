@@ -20,8 +20,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.android.navigation.databinding.FragmentGameWonBinding
 
@@ -35,8 +37,16 @@ class GameWonFragment : Fragment() {
 
         // Return next match button to game won fragment
         binding.nextMatchButton.setOnClickListener { view: View ->
-            findNavController().navigate(R.id.action_gameWonFragment_to_gameFragment)
+            view.findNavController().navigate(
+                    GameWonFragmentDirections.actionGameWonFragmentToGameFragment()
+            )
         }
+
+        // GameWonFragmentArgs extracts the args class from the Bundle, and displays in a Toast.
+        val args = GameWonFragmentArgs.fromBundle(arguments!!)
+        Toast.makeText(context,
+                "NumCorrect: ${args.numCorrect}, NumQuestions: ${args.numQuestions}",
+                Toast.LENGTH_LONG).show()
 
         return binding.root
     }
