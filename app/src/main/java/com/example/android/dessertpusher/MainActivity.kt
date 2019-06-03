@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         }
 
         // Create a desserttimer object
-        dessertimer = DessertTimer()
+        dessertimer = DessertTimer(this.lifecycle)
 
 
         // Set the TextViews to the right values
@@ -161,14 +161,14 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onStart() {
         Timber.i("Start here")
-        dessertimer.startTimer()
+//        dessertimer.startTimer()
         super.onStart()
     }
 
-    override fun onPause() {
-        Timber.i("Pause here")
-        super.onPause()
-    }
+//    override fun onPause() {
+//        Timber.i("Pause here")
+//        super.onPause()
+//    }
 
     override fun onResume() {
         Timber.i("Resume here")
@@ -182,7 +182,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     override fun onStop() {
         Timber.i("Stop here")
-        dessertimer.stopTimer()
+//        dessertimer.stopTimer()
         super.onStop()
     }
 
