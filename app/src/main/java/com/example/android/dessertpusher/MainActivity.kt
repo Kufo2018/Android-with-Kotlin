@@ -26,11 +26,15 @@ import androidx.core.app.ShareCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
     private var revenue = 0
     private var dessertsSold = 0
+
+    // Declares an instance of the timer
+    private lateinit var dessertimer: DessertTimer
 
     // Contains all the views
     private lateinit var binding: ActivityMainBinding
@@ -63,7 +67,11 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
     private var currentDessert = allDesserts[0]
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
+        // Creates a log info when the onCreate method is called
+        Timber.plant(Timber.DebugTree())
 
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -71,6 +79,10 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         binding.dessertButton.setOnClickListener {
             onDessertClicked()
         }
+
+        // Create a desserttimer object
+        dessertimer = DessertTimer()
+
 
         // Set the TextViews to the right values
         binding.revenue = revenue
@@ -146,4 +158,37 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onStart() {
+        Timber.i("Start here")
+        dessertimer.startTimer()
+        super.onStart()
+    }
+
+    override fun onPause() {
+        Timber.i("Pause here")
+        super.onPause()
+    }
+
+    override fun onResume() {
+        Timber.i("Resume here")
+        super.onResume()
+    }
+
+    override fun onRestart() {
+        Timber.i("Restart here")
+        super.onRestart()
+    }
+
+    override fun onStop() {
+        Timber.i("Stop here")
+        dessertimer.stopTimer()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        Timber.i("Destroy here")
+        super.onDestroy()
+    }
+
 }
