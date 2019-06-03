@@ -28,13 +28,6 @@ class GameViewModel: ViewModel(){
         nextWord()
     }
 
-    /** Overrides the default response of the Model when it is cleare **/
-
-    override fun onCleared() {
-        super.onCleared()
-        Timber.i("GameViewModel destroyed!")
-    }
-
     /** Resets the list of words and randomizes the order **/
 
     private fun resetList() {
@@ -73,8 +66,6 @@ class GameViewModel: ViewModel(){
         } else {
             word = wordList.removeAt(0)
         }
-//        updateWordText()
-//        updateScoreText()
     }
 
     /** Methods for buttons presses **/
