@@ -28,9 +28,16 @@ import androidx.lifecycle.LifecycleObserver
 import com.example.android.dessertpusher.databinding.ActivityMainBinding
 import timber.log.Timber
 
+const val KEY_REVENUE = "key_revenue"
+const val KEY_DESSERTS_SOLD = "key_desserts_sold"
+const val KEY_TIMER = "key_timer"
+
+
+
+
 class MainActivity : AppCompatActivity(), LifecycleObserver {
 
-    private var revenue = 0
+        private var revenue = 0
     private var dessertsSold = 0
 
     // Declares an instance of the timer
@@ -72,6 +79,7 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         // Creates a log info when the onCreate method is called
         Timber.plant(Timber.DebugTree())
+        Timber.i("On Create here")
 
         // Use Data Binding to get reference to the views
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -82,6 +90,15 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
 
         // Create a desserttimer object
         dessertimer = DessertTimer(this.lifecycle)
+
+        // Ensure restoreInstanceState is not null
+        if (savedInstanceState != null){
+            revenue = savedInstanceState.getInt(KEY_REVENUE, 0)
+            dessertsSold = savedInstanceState.getInt(KEY_DESSERTS_SOLD, 0)
+            dessertimer.secondsCount = savedInstanceState.getInt(KEY_TIMER, 0)
+            showCurrentDessert()
+
+        }
 
 
         // Set the TextViews to the right values
@@ -159,36 +176,23 @@ class MainActivity : AppCompatActivity(), LifecycleObserver {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onStart() {
-        Timber.i("Start here")
-//        dessertimer.startTimer()
-        super.onStart()
+    // Add objects to saveInstanceState
+    override fun onSaveInstanceState(outState: Bundle?) {
+        outState?.putInt(KEY_REVENUE, revenue)
+        outState?.putInt(KEY_DESSERTS_SOLD, dessertsSold)
+        outState?.putInt(KEY_TIMER, dessertimer.secondsCount)
+        Timber.i("onSavedInstanceState here ")
+        super.onSaveInstanceState(outState)
     }
 
-//    override fun onPause() {
-//        Timber.i("Pause here")
-//        super.onPause()
+//    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+//        super.onRestoreInstanceState(savedInstanceState)
+//        Timber.i("onRestoreInstanceState Called")
 //    }
 
-    override fun onResume() {
-        Timber.i("Resume here")
-        super.onResume()
-    }
-
-    override fun onRestart() {
-        Timber.i("Restart here")
-        super.onRestart()
-    }
-
-    override fun onStop() {
-        Timber.i("Stop here")
-//        dessertimer.stopTimer()
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        Timber.i("Destroy here")
-        super.onDestroy()
-    }
+//    override fun onRestart() {
+//        Timber.i("onRestart Called")
+//        super.onRestart()
+//    }
 
 }
