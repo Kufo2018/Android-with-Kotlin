@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.android.guesstheword.R
@@ -41,7 +42,23 @@ class GameFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        // Plants log
+
+        //Sets up observer relationship for the score LiveData
+        viewModel.score.observe(this, Observer { newScore ->
+
+            // Updates the score TextView
+            binding.scoreText.text =newScore.toString()
+        })
+
+        //Sets up the observable relationship for the word LiveData
+        viewModel.word.observe(this, Observer { newWord ->
+
+            // Updates the word TextView
+            binding.wordText.text = newWord.toString()
+
+        })
+
+        // Plants debug log
         Timber.plant(Timber.DebugTree())
         Timber.i("Called ViewModelProviders.of")
 
@@ -56,22 +73,17 @@ class GameFragment : Fragment() {
                 false
         )
 
-        // Onclick listeners
+        //onClick listeners
         binding.correctButton.setOnClickListener {
             viewModel.onCorrect()
-            updateScoreText()
-            updateWordText()
              }
 
         binding.skipButton.setOnClickListener {
             viewModel.onSkip()
-            updateScoreText()
-            updateWordText()
+
         }
 
-        updateScoreText()
-        updateWordText()
-
+        // Returns rootView
         return binding.root
 
     }
@@ -80,18 +92,12 @@ class GameFragment : Fragment() {
      * Called when the game is finished
      */
     private fun gameFinished() {
-        val action = GameFragmentDirections.actionGameToScore(viewModel.score)
+
+        // Adds null safety check when passing currentScore in the gameFinished method:
+        val currentScore = viewModel.score.value ?: 0
+
+        val action = GameFragmentDirections.actionGameToScore(currentScore)
         findNavController(this).navigate(action)
     }
 
-    /** Methods for updating the UI **/
-
-    private fun updateWordText() {
-        binding.wordText.text = viewModel.word
-
-    }
-
-    private fun updateScoreText() {
-        binding.scoreText.text = viewModel.score.toString()
-    }
 }
