@@ -1,5 +1,6 @@
 package com.example.android.guesstheword.screens.game
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import timber.log.Timber
@@ -8,11 +9,27 @@ class GameViewModel: ViewModel(){
 
     /** The current word **/
 
-    val word = MutableLiveData<String>()
+    // Internal variable
+    private val _word = MutableLiveData<String>()
+
+    // External variable
+    val word: LiveData<String>
+
+    // Makes a backing property for the external version
+    //that returns the internal MutableLiveData as a LiveData
+    get() = _word
 
     /** The current score  **/
 
-    val score = MutableLiveData<Int>()
+    // Internal variable
+    private val _score = MutableLiveData<Int>()
+
+    // External variable
+    val score: LiveData<Int>
+
+    // Makes a backing property for the external version
+    //that returns the internal MutableLiveData as a LiveData
+    get() = _score
 
     /** The list of words - the front of the list is the next word to guess **/
 
@@ -23,7 +40,7 @@ class GameViewModel: ViewModel(){
     init {
 
         // Initializes score.value to zero
-        score.value = 0
+        _score.value = 0
 
         Timber.i("GameViewModel created")
 
@@ -68,19 +85,19 @@ class GameViewModel: ViewModel(){
         if (wordList.isEmpty()) {
 //            gameFinished()
         } else {
-            word.value = wordList.removeAt(0)
+            _word.value = wordList.removeAt(0)
         }
     }
 
     /** Methods for buttons presses **/
 
     fun onSkip() {
-        score.value = (score.value)?.minus(1)
+        _score.value = (score.value)?.minus(1)
         nextWord()
     }
 
     fun onCorrect() {
-        score.value = (score.value)?.plus(1)
+        _score.value = (score.value)?.plus(1)
         nextWord()
     }
 }

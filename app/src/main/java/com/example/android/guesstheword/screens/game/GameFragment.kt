@@ -42,6 +42,20 @@ class GameFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+        // Plants debug log
+        Timber.plant(Timber.DebugTree())
+        Timber.i("Called ViewModelProviders.of")
+
+        // Request the current GameViewModel using the ViewModelProviders class
+        viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
+
+        // Inflate view and obtain an instance of the binding class
+        binding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.game_fragment,
+                container,
+                false
+        )
 
         //Sets up observer relationship for the score LiveData
         viewModel.score.observe(this, Observer { newScore ->
@@ -57,21 +71,6 @@ class GameFragment : Fragment() {
             binding.wordText.text = newWord.toString()
 
         })
-
-        // Plants debug log
-        Timber.plant(Timber.DebugTree())
-        Timber.i("Called ViewModelProviders.of")
-
-        // Request the current GameViewModel using the ViewModelProviders class
-        viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
-
-        // Inflate view and obtain an instance of the binding class
-        binding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.game_fragment,
-                container,
-                false
-        )
 
         //onClick listeners
         binding.correctButton.setOnClickListener {
