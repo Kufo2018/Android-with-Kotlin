@@ -17,6 +17,7 @@
 package com.example.android.guesstheword.screens.game
 
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +45,7 @@ class GameFragment : Fragment() {
 
         // Plants debug log
         Timber.plant(Timber.DebugTree())
-        Timber.i("Called ViewModelProviders.of")
+        Timber.i("onCreateView")
 
         // Request the current GameViewModel using the ViewModelProviders class
         viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
@@ -57,14 +58,21 @@ class GameFragment : Fragment() {
                 false
         )
 
-        //Sets up observer relationship for the score LiveData
+        // Sets up observer relationship for timer
+        viewModel.currentTime.observe(this, Observer { newTime ->
+
+            // Convert the Long for the timer into a String
+            binding.timerText.text = DateUtils.formatElapsedTime(newTime)
+        })
+
+        // Sets up observer relationship for the score LiveData
         viewModel.score.observe(this, Observer { newScore ->
 
             // Updates the score TextView
-            binding.scoreText.text =newScore.toString()
+            binding.scoreText.text = newScore.toString()
         })
 
-        //Sets up the observable relationship for the word LiveData
+        // Sets up the observable relationship for the word LiveData
         viewModel.word.observe(this, Observer { newWord ->
 
             // Updates the word TextView
