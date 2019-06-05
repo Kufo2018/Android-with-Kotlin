@@ -72,6 +72,16 @@ class GameFragment : Fragment() {
 
         })
 
+        // Observes the eventGameFinish
+        viewModel.eventGameFinish.observe(this, Observer { isFinished ->
+            if (isFinished) {
+                val currentScore = viewModel.score.value ?: 0
+                val action = GameFragmentDirections.actionGameToScore(currentScore)
+                findNavController(this).navigate(action)
+                viewModel.onGameFinishComplete()
+            }
+        })
+
         //onClick listeners
         binding.correctButton.setOnClickListener {
             viewModel.onCorrect()
@@ -85,18 +95,6 @@ class GameFragment : Fragment() {
         // Returns rootView
         return binding.root
 
-    }
-
-    /**
-     * Called when the game is finished
-     */
-    private fun gameFinished() {
-
-        // Adds null safety check when passing currentScore in the gameFinished method:
-        val currentScore = viewModel.score.value ?: 0
-
-        val action = GameFragmentDirections.actionGameToScore(currentScore)
-        findNavController(this).navigate(action)
     }
 
 }
