@@ -6,3 +6,4 @@ My projects from [Udacity's Developing Android Apps with Kotlin Course](https://
 - [Android Trivia](https://github.com/Kufo2018/Android-with-Kotlin/tree/android-trivia)
 - [Dessert Pusher](https://github.com/Kufo2018/Android-with-Kotlin/tree/dessert-pusher)
 - [Guess it](https://github.com/Kufo2018/Android-with-Kotlin/tree/guess-it)
+- [Mars Real Estate](https://github.com/Kufo2018/Android-with-Kotlin/tree/mars-realestate)
